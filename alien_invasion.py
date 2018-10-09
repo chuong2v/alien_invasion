@@ -5,6 +5,7 @@ from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
+from alien import Alien
 import game_functions as gf
 
 def run_game():
@@ -19,6 +20,9 @@ def run_game():
 
   # Make a group to store bullets in.
   bullets = Group()
+  aliens = Group()
+  # Create the fleet of aliens.
+  gf.create_fleet(ai_settings, screen, ship, aliens)
 
   # Start the main loop for the game.
   while True:
@@ -26,11 +30,8 @@ def run_game():
     # (event-loop)
     gf.check_events(ai_settings, screen, ship, bullets)
     ship.update()
-    bullets.update()
-    # Get rid of bullets that have disappeared.
-    for bullet in bullets.copy():
-      if bullet.rect.bottom <= 0:
-        bullets.remove(bullet)
-    gf.update_screen(ai_settings, screen, ship, bullets)
+    gf.update_bullets(bullets, aliens)
+    gf.update_aliens(ai_settings, aliens)
+    gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 run_game()

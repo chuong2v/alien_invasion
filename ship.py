@@ -16,6 +16,10 @@ class Ship():
     self.ai_settings = ai_settings
     # Store a decimal value for the ship's center.
     self.center = float(self.rect.centerx)
+  
+  def center_ship(self):
+    """Center the ship on the screen."""
+    self.center = self.screen_rect.centerx
 
   def blitme(self):
     """Draw the ship at its current location."""
